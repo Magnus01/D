@@ -78,7 +78,7 @@ export default class DiggitAuth {
       if (profile) {
         this.userProfile = profile;
       }
-      cb(err, profile);
+      // cb(err, profile);
     });
   }
 

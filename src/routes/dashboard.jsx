@@ -19,7 +19,7 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
+    path: "/",
     sidebarName: "Dashboard",
     navbarName: "Material Dashboard",
     icon: Dashboard,
