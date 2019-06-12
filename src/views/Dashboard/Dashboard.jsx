@@ -69,41 +69,6 @@ var settings_getusers = {
 }
 
 
-// function fetchGroups(url, cb, data) {
-//     if(!data) data = [];
-
-//     $.ajax({
-
-//         dataType:'jsonp',
-//         method:'get',
-//         url:url,
-//         success:function(result) {
-//             console.log(url + result+' results');
-//             console.dir(result);
-//             //add to data
-//             data.push.apply(data, result.data);
-//             if(result.meta.next_link) {
-//                 var nextUrl = result.meta.next_link;
-//                 fetchGroups(nextUrl, cb, data);
-//             } else {
-
-//                 cb(data);
-//             }
-//         }
-//     });
-
-// }
-
-// const  API_KEY   = 'Bearer 2TMZZ4XNWIQBIIYSW2C5';
-const  API_KEY   = '2TMZZ4XNWIQBIIYSW2C5';
-const  API_URL = 'https://www.eventbriteapi.com/v3/events/search/';
-const  API_URL2 = 'https://www.eventbriteapi.com/v3/events/53180953664/orders/expand=attendees/';
-// const  API_URL_sales = "https://www.eventbriteapi.com/v3/reports/sales?event_ids=53180953664&start_date=&end_date=&filter_by=&group_by=&period=&date_facet=&timezone=Norway%2FOslo"
-const  API_URL_sales = "https://www.eventbriteapi.com/v3/reports/sales?event_ids=53180953664"
-const  API_URL_sales2 = "/v3/reports/sales/?event_ids=53180953664&token=2TMZZ4XNWIQBIIYSW2C5"
-
-const  API_URL_sales3 ="https://www.eventbriteapi.com/v3/reports/sales/?event_ids=53180953664&token=2TMZZ4XNWIQBIIYSW2C5"
-const  User_Url ="https://diggitapi.com:3030/api/getusers"
 var count = 0;
 
 var accesstoken = ''
@@ -145,7 +110,7 @@ class Dashboard extends React.Component {
         });
 
     //    if ( accesstoken.length >0 ) {
-        accesstoken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5FSXhOVFZHTnpnM1FrSTVSRVU0UkRKRlJUWXdOME5CUWtSQ1FqTkJOams0UWtKRk0wWXhRZyJ9.eyJpc3MiOiJodHRwczovL2RpZ2dpdC5ldS5hdXRoMC5jb20vIiwic3ViIjoiTDF2eGZIWUJzREZ6RTVZSnIyR0FvSnZ0VjJHQW52ellAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZGlnZ2l0LmV1LmF1dGgwLmNvbS9hcGkvdjIvIiwiaWF0IjoxNTU1MzM5NDE5LCJleHAiOjE1NTU0MjU4MTksImF6cCI6IkwxdnhmSFlCc0RGekU1WUpyMkdBb0p2dFYyR0FudnpZIiwic2NvcGUiOiJyZWFkOmNsaWVudF9ncmFudHMgY3JlYXRlOmNsaWVudF9ncmFudHMgZGVsZXRlOmNsaWVudF9ncmFudHMgdXBkYXRlOmNsaWVudF9ncmFudHMgcmVhZDp1c2VycyB1cGRhdGU6dXNlcnMgZGVsZXRlOnVzZXJzIGNyZWF0ZTp1c2VycyByZWFkOnVzZXJzX2FwcF9tZXRhZGF0YSB1cGRhdGU6dXNlcnNfYXBwX21ldGFkYXRhIGRlbGV0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgY3JlYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBjcmVhdGU6dXNlcl90aWNrZXRzIHJlYWQ6Y2xpZW50cyB1cGRhdGU6Y2xpZW50cyBkZWxldGU6Y2xpZW50cyBjcmVhdGU6Y2xpZW50cyByZWFkOmNsaWVudF9rZXlzIHVwZGF0ZTpjbGllbnRfa2V5cyBkZWxldGU6Y2xpZW50X2tleXMgY3JlYXRlOmNsaWVudF9rZXlzIHJlYWQ6Y29ubmVjdGlvbnMgdXBkYXRlOmNvbm5lY3Rpb25zIGRlbGV0ZTpjb25uZWN0aW9ucyBjcmVhdGU6Y29ubmVjdGlvbnMgcmVhZDpyZXNvdXJjZV9zZXJ2ZXJzIHVwZGF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGRlbGV0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGNyZWF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIHJlYWQ6ZGV2aWNlX2NyZWRlbnRpYWxzIHVwZGF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgZGVsZXRlOmRldmljZV9jcmVkZW50aWFscyBjcmVhdGU6ZGV2aWNlX2NyZWRlbnRpYWxzIHJlYWQ6cnVsZXMgdXBkYXRlOnJ1bGVzIGRlbGV0ZTpydWxlcyBjcmVhdGU6cnVsZXMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.p7qu7THxmR--BW8P0bZtJmZiqltsKi4aWK-Hytumq-ThvCKn-XZdvh-Qnc0dnqhAdIAdut_UUNHglkS4_2AFePMXHtSsh5oyB9e6KyOHuntvOKcugeSJ0Scl5j9W9_T0Ne6MXpdPG6TLaNlGUIo56-kwXQJw-i3dUllQvDL5GOXfIQayW0mT2EellmXN49KineI8VXDojlNGO5556XYltRMFl-ZWcP1Nw1Juql74AI9aAgLsplBQ4aGECqaPe9UjlVaAK2_1cHlIsuLkkNULPM2Soidm-RGZfkyJ7pSt2RJW-_xre9-rv-3hzmuX-aT9NB8MpQwfE1hN5cXYosm8Lw";
+        accesstoken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik5FSXhOVFZHTnpnM1FrSTVSRVU0UkRKRlJUWXdOME5CUWtSQ1FqTkJOams0UWtKRk0wWXhRZyJ9.eyJpc3MiOiJodHRwczovL2RpZ2dpdC5ldS5hdXRoMC5jb20vIiwic3ViIjoiTDF2eGZIWUJzREZ6RTVZSnIyR0FvSnZ0VjJHQW52ellAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vZGlnZ2l0LmV1LmF1dGgwLmNvbS9hcGkvdjIvIiwiaWF0IjoxNTYwMzQ3MjQ0LCJleHAiOjE1NjA0MzM2NDQsImF6cCI6IkwxdnhmSFlCc0RGekU1WUpyMkdBb0p2dFYyR0FudnpZIiwic2NvcGUiOiJyZWFkOmNsaWVudF9ncmFudHMgY3JlYXRlOmNsaWVudF9ncmFudHMgZGVsZXRlOmNsaWVudF9ncmFudHMgdXBkYXRlOmNsaWVudF9ncmFudHMgcmVhZDp1c2VycyB1cGRhdGU6dXNlcnMgZGVsZXRlOnVzZXJzIGNyZWF0ZTp1c2VycyByZWFkOnVzZXJzX2FwcF9tZXRhZGF0YSB1cGRhdGU6dXNlcnNfYXBwX21ldGFkYXRhIGRlbGV0ZTp1c2Vyc19hcHBfbWV0YWRhdGEgY3JlYXRlOnVzZXJzX2FwcF9tZXRhZGF0YSBjcmVhdGU6dXNlcl90aWNrZXRzIHJlYWQ6Y2xpZW50cyB1cGRhdGU6Y2xpZW50cyBkZWxldGU6Y2xpZW50cyBjcmVhdGU6Y2xpZW50cyByZWFkOmNsaWVudF9rZXlzIHVwZGF0ZTpjbGllbnRfa2V5cyBkZWxldGU6Y2xpZW50X2tleXMgY3JlYXRlOmNsaWVudF9rZXlzIHJlYWQ6Y29ubmVjdGlvbnMgdXBkYXRlOmNvbm5lY3Rpb25zIGRlbGV0ZTpjb25uZWN0aW9ucyBjcmVhdGU6Y29ubmVjdGlvbnMgcmVhZDpyZXNvdXJjZV9zZXJ2ZXJzIHVwZGF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGRlbGV0ZTpyZXNvdXJjZV9zZXJ2ZXJzIGNyZWF0ZTpyZXNvdXJjZV9zZXJ2ZXJzIHJlYWQ6ZGV2aWNlX2NyZWRlbnRpYWxzIHVwZGF0ZTpkZXZpY2VfY3JlZGVudGlhbHMgZGVsZXRlOmRldmljZV9jcmVkZW50aWFscyBjcmVhdGU6ZGV2aWNlX2NyZWRlbnRpYWxzIHJlYWQ6cnVsZXMgdXBkYXRlOnJ1bGVzIGRlbGV0ZTpydWxlcyBjcmVhdGU6cnVsZXMgcmVhZDplbWFpbF9wcm92aWRlciB1cGRhdGU6ZW1haWxfcHJvdmlkZXIgZGVsZXRlOmVtYWlsX3Byb3ZpZGVyIGNyZWF0ZTplbWFpbF9wcm92aWRlciBibGFja2xpc3Q6dG9rZW5zIHJlYWQ6c3RhdHMgcmVhZDp0ZW5hbnRfc2V0dGluZ3MgdXBkYXRlOnRlbmFudF9zZXR0aW5ncyByZWFkOmxvZ3MgcmVhZDpzaGllbGRzIGNyZWF0ZTpzaGllbGRzIGRlbGV0ZTpzaGllbGRzIHVwZGF0ZTp0cmlnZ2VycyByZWFkOnRyaWdnZXJzIHJlYWQ6Z3JhbnRzIGRlbGV0ZTpncmFudHMgcmVhZDpndWFyZGlhbl9mYWN0b3JzIHVwZGF0ZTpndWFyZGlhbl9mYWN0b3JzIHJlYWQ6Z3VhcmRpYW5fZW5yb2xsbWVudHMgZGVsZXRlOmd1YXJkaWFuX2Vucm9sbG1lbnRzIGNyZWF0ZTpndWFyZGlhbl9lbnJvbGxtZW50X3RpY2tldHMgcmVhZDp1c2VyX2lkcF90b2tlbnMgY3JlYXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgZGVsZXRlOnBhc3N3b3Jkc19jaGVja2luZ19qb2IgcmVhZDpjdXN0b21fZG9tYWlucyBkZWxldGU6Y3VzdG9tX2RvbWFpbnMgY3JlYXRlOmN1c3RvbV9kb21haW5zIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.cNpc_7GuAvpDU_0FN_NrQg2eALDoGIGtl8ypcHKcLdnl0bU396wzQ7ZsSOoJPzze_btOcP7KvItkedJ0RH7iHwL7Mjnz9H51F_41XxK6B0OBmTKXEk8gmM7QnVt427uM9YZpXPmG8Zsxy3dszCZQRLmWSxCaBszAPMWd0KtYEkCW38eS_pCkmEGkbWMlSdrSe6B-wd6PtFN8_wsA1ZhD6R9N2LpUCj7KY99vcH36zjIN0ZX09OJP_4tkBWDvYlku7xHHWkEK_-41xxNoMYMipHrh59QUiT1BgDv4rQSj02ngdQUwdWgUqtfh8htJnRpB0Hsd8XypFpfZmVwJ5xpYLA";
         this.getUsers(count, accesstoken);
         // this.getNews();
         this.getUsers(count+1,accesstoken);
@@ -222,23 +187,23 @@ class Dashboard extends React.Component {
     // }
 
 
-    getSearch(category) {
+    // getSearch(category) {
 
-            fetch(API_URL_sales3, {
-                method: 'GET',
-            })
-                .then((res) => res.json())
-                .then((resJson) => {
+    //         fetch(API_URL_sales3, {
+    //             method: 'GET',
+    //         })
+    //             .then((res) => res.json())
+    //             .then((resJson) => {
 
 
-                    this.setState({
-                        dataSource: resJson
-                    })
-                    this.setState({
-                        Bool: true
-                    })
-                })
-    }
+    //                 this.setState({
+    //                     dataSource: resJson
+    //                 })
+    //                 this.setState({
+    //                     Bool: true
+    //                 })
+    //             })
+    // }
 
 
  
